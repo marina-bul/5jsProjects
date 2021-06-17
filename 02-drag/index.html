@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Drag & Drop | Проект 2</title>
+  </head>
+  <body>
+    <form class="add-item">
+      <input class="new-item" type="text" placeholder="Введите название товара">
+      <button class="add-item-btn">Добавить</button>
+    </form>
+    <div class="lists-container">
+      <ul class="items-list placeholder to-buy">
+        <h2>Купить</h2>
+        <li class="item" draggable="true">Тестовый элемент</li>
+      </ul>
+      <ul class="items-list placeholder">
+        <h2>Куплено</h2>
+      </ul>
+    </div>
+
+  
+    <script src="./app.js"></script>
+  </body>
+</html>

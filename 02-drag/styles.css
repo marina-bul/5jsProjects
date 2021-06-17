@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding-top: 5rem;
+  font-family: "Roboto", sans-serif;
+  color: darkgreen;
+  background-color: #e5e5e5;
+  text-align: center;
+  overflow: hidden;
+  margin: 0;
+}
+
+.lists-container {
+  display: flex;
+  padding-top: 2rem;
+  justify-content: center;
+}
+
+.items-list {
+  margin: 0;
+  margin-right: 30px;
+  padding: 0;
+  width: 300px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+}
+
+.item {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #eee;
+  box-shadow: 4px 4px 9px rgba(198, 198, 198, 0.36);
+  border-radius: 20px;
+  background: #f7f6f7;
+  padding: 0.8rem 1rem;
+  color: #828282;
+  text-align: center;
+  cursor: grab;
+}
+
+.item:active {
+  cursor: grabbing;
+}
+
+.new-item {
+  padding: 5px;
+  font-size: 16px;
+}
+
+.add-item-btn {
+  padding: 5px;
+  color: #fff;
+  font-weight: bold;
+  background-color: darkgreen;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.hold {
+  color: #fff;
+  background-color: green;
+}
+
+.hide {
+  display: none;
+}
+
+.hovered {
+  background-color: rgba(7, 122, 17, 0.3);
+}
