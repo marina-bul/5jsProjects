@@ -7,6 +7,38 @@
   <title>Доска | Проект 4</title>
 </head>
 <body>
-<div class="container" id="board"></div>
+  <div class="description">
+    <p>Нарисуйте на доске (справа) слово, предложенное на карточке (слева). На задание у Вас есть 10 сек.</p>
+    <p>Выберите цвет кисти с помощью кнопок справа и нажимайте Начать игру!</p>
+    <button class="start-game">Начать игру</button>
+  </div>
+  <div class="game-wrapper">
+    <div class="task-wrapper">
+      <div class="task">
+        <span class="task-word"></span>
+      </div>
+    </div>
+
+    <div class="board-wrapper">
+      <div class="container" id="board"></div>
+      <div class="palette">
+        <div class="timer">
+          <div class="minutes">0</div>
+          <div>:</div>
+          <div class="seconds">10</div>
+        </div>
+        <h3>Выберите цвет палитры</h3>
+        <button class="purple">Фиолетовый</button>
+        <button class="orange">Оранжевый</button>
+        <button class="green">Зеленый</button>
+        <button class="blue">Синий</button>
+      </div>
+    </div>
+
+    <div class="game-over"></div>
+  </div>
+    
+
+<script src="./app.js"></script>
 </body>
 </html>
