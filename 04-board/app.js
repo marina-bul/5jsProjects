@@ -1,15 +1,15 @@
 const body = document.querySelector("body");
 const board = document.getElementById("board");
+const taskEl = document.querySelector(".task-word");
 const startGameBtn = document.querySelector(".start-game");
 const purpleBtn = document.querySelector(".purple");
 const orangeBtn = document.querySelector(".orange");
 const greenBtn = document.querySelector(".green");
 const blueBtn = document.querySelector(".blue");
-const taskEl = document.querySelector(".task-word");
 const timerMinutesEl = document.querySelector(".minutes");
 const timerSecondsEl = document.querySelector(".seconds");
-const gameOverEl = document.querySelector(".game-over");
 
+const defaultColors = ["red", "yellow", "green"];
 const colorPalletes = {
   purple: ["#CD0074", "#992667", "#85004B", "#E6399B", "#E667AF"],
   orange: ["#FF7400", "#BF7130", "#A64B00", "#FF9640", "#FFB273"],
@@ -18,21 +18,12 @@ const colorPalletes = {
 };
 const words = ["Дождь", "Кошка", "Карандаш"];
 
-let colors = ["red", "yellow", "green"];
-let seconds = 9;
+let timer;
+let seconds = 0;
 
-const SQUARE_NUMBER = 300;
+initGame();
 
-for (let i = 0; i < SQUARE_NUMBER; i++) {
-  const square = document.createElement("div");
-  square.classList.add("square");
-
-  square.addEventListener("mouseover", () => {
-    setColor(square);
-  });
-
-  board.append(square);
-}
+const squares = document.querySelectorAll(".square");
 
 purpleBtn.addEventListener("click", () => {
   setPalette("purple");
@@ -49,48 +40,71 @@ blueBtn.addEventListener("click", () => {
 
 startGameBtn.addEventListener("click", startGame);
 
-let timer;
+function initGame() {
+  const screenSquare = (board.clientHeight - 18) * (board.clientWidth - 18);
+  const circleSquare = 18 * 18;
+  const SQUARE_NUMBER = Math.floor(screenSquare / circleSquare);
+
+  for (let i = 0; i < SQUARE_NUMBER; i++) {
+    const square = document.createElement("div");
+    square.classList.add("square");
+
+    square.addEventListener("mouseover", setColor);
+
+    board.append(square);
+  }
+}
 
 function startGame() {
   body.style.backgroundColor = "#111";
-  gameOverEl.style.display = "none";
   clearInterval(timer);
   seconds = 9;
   setRandomWord();
   removeColor();
+  for (let square of squares) {
+    square.addEventListener("mouseover", setColor);
+  }
   setTimerCount();
+  startGameBtn.disabled = true;
 }
 
 function setTimerCount() {
   timer = setInterval(() => {
     timerSecondsEl.innerHTML = seconds;
+    if (seconds < 10) {
+      timerSecondsEl.innerHTML = `0${seconds}`;
+    }
     seconds--;
   }, 1000);
   setTimeout(() => {
     clearInterval(timer);
+    for (let square of squares) {
+      square.removeEventListener("mouseover", setColor);
+    }
     body.style.backgroundColor = "rgb(238, 66, 66)";
-    gameOverEl.style.display = "block";
+    startGameBtn.disabled = false;
   }, 10000);
 }
 
 function setPalette(color) {
   switch (color) {
     case "purple":
-      colors = colorPalletes.purple;
+      defaultColors = colorPalletes.purple;
       break;
     case "orange":
-      colors = colorPalletes.orange;
+      defaultColors = colorPalletes.orange;
       break;
     case "green":
-      colors = colorPalletes.green;
+      defaultColors = colorPalletes.green;
       break;
     case "blue":
-      colors = colorPalletes.blue;
+      defaultColors = colorPalletes.blue;
       break;
   }
 }
 
-function setColor(element) {
+function setColor(event) {
+  const element = event.target;
   const color = getRandomColor();
   element.style.backgroundColor = color;
   element.style.boxShadow = `0 0 2px ${color}, 0 0 10px ${color}`;
@@ -105,8 +119,8 @@ function removeColor() {
 }
 
 function getRandomColor() {
-  const index = Math.floor(Math.random() * colors.length);
-  return colors[index];
+  const index = Math.floor(Math.random() * defaultColors.length);
+  return defaultColors[index];
 }
 
 function setRandomWord() {
